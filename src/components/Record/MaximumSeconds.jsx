@@ -44,10 +44,6 @@ const MaximumSecondsBlock = styled.div`
     font-size: 13px;
     color: rgba(0, 0, 0, 0.5);
   }
-  #max-select {
-    width: 90px;
-    margin-top: 10px;
-  }
 `;
 
 export default MaximumSeconds;

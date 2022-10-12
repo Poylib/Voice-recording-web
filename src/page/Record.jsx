@@ -121,7 +121,6 @@ const Record = ({ audioList, setAudioList }) => {
           url: URL.createObjectURL(audioUrl),
         },
       ]);
-      console.log(audioList);
     }
   }, [audioUrl]);
 

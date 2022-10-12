@@ -2,11 +2,7 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "jsxSingleQuote": true,
-<<<<<<< HEAD
   "printWidth": 120,
-=======
-  "printWidth": 130,
->>>>>>> develop
   "singleQuote": true,
   "tabWidth": 2
 }
