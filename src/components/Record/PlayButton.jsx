@@ -5,7 +5,7 @@ import { mainColor } from '../../theme';
 
 const PlayButton = ({
   isRecord,
-  onRec,
+  recOn,
   startRecord,
   stopRecord,
   startHandler,
@@ -21,7 +21,7 @@ const PlayButton = ({
         onClick={() => {
           clickButton();
           if (isRecord) {
-            if (onRec) {
+            if (recOn) {
               startRecord();
               startHandler();
             } else {

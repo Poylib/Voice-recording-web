@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const Record = ({ audioList, setAudioList }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
-  const [onRec, setOnRec] = useState(true);
+  const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
@@ -16,10 +16,10 @@ const Record = ({ audioList, setAudioList }) => {
   const countRef = useRef(null);
 
   useEffect(() => {
-    if (audioUrl && onRec) {
+    if (audioUrl && recOn) {
       onSubmitAudioFile();
     }
-  }, [onRec]);
+  }, [recOn]);
 
   let today = new Date();
   let year = today.getFullYear();
@@ -86,10 +86,10 @@ const Record = ({ audioList, setAudioList }) => {
 
           mediaRecorder.ondataavailable = function (e) {
             setAudioUrl(e.data);
-            setOnRec(true);
+            setRecOn(true);
           };
         } else {
-          setOnRec(false);
+          setRecOn(false);
         }
       };
     });
@@ -98,7 +98,7 @@ const Record = ({ audioList, setAudioList }) => {
   const stopRecord = () => {
     media.ondataavailable = function (e) {
       setAudioUrl(e.data);
-      setOnRec(true);
+      setRecOn(true);
     };
 
     stream.getAudioTracks().forEach(function (track) {
@@ -130,18 +130,18 @@ const Record = ({ audioList, setAudioList }) => {
   };
 
   return (
-    <RecordBlock onRec={onRec}>
+    <RecordBlock recOn={recOn}>
       <p className='timer'>{count.toHHMMSS()}</p>
-      <MaximumSeconds handleSelect={handleSelect} onRec={onRec} />
+      <MaximumSeconds handleSelect={handleSelect} recOn={recOn} maxSeconds={maxSeconds} />
       <div className='recording-alert'>
         <div className='recording-light'>
-          <div className={onRec ? 'backlight-off' : 'backlight-on'} />
+          <div className={recOn ? 'backlight-off' : 'backlight-on'} />
         </div>
         REC
       </div>
       <PlayButton //
         isRecord={true}
-        onRec={onRec}
+        recOn={recOn}
         startRecord={startRecord}
         stopRecord={stopRecord}
         startHandler={startHandler}
@@ -171,7 +171,7 @@ const RecordBlock = styled.div`
     display: flex;
     align-items: center;
     margin: 90px 0 30px 0;
-    color: ${props => (props.onRec ? 'black' : 'red')};
+    color: ${props => (props.recOn ? 'black' : 'red')};
     font-weight: 700;
 
     .recording-light {
@@ -183,7 +183,7 @@ const RecordBlock = styled.div`
       width: 13px;
       border-radius: 100%;
       margin-right: 5px;
-      background-color: ${props => (props.onRec ? 'black' : 'red')};
+      background-color: ${props => (props.recOn ? 'black' : 'red')};
       animation: clickEffect 0.8s ease-out;
 
       .backlight-on {
