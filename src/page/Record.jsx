@@ -160,20 +160,17 @@ const RecordBlock = styled.div`
   align-items: center;
   justify-content: center;
   height: 85vh;
-
   .timer {
     font-size: 32px;
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
-
   .recording-alert {
     display: flex;
     align-items: center;
     margin: 90px 0 30px 0;
     color: ${props => (props.recOn ? 'black' : 'red')};
     font-weight: 700;
-
     .recording-light {
       position: relative;
       display: flex;
@@ -185,7 +182,6 @@ const RecordBlock = styled.div`
       margin-right: 5px;
       background-color: ${props => (props.recOn ? 'black' : 'red')};
       animation: clickEffect 0.8s ease-out;
-
       .backlight-on {
         position: absolute;
         width: 26px;
@@ -196,7 +192,6 @@ const RecordBlock = styled.div`
       }
     }
   }
-
   @keyframes scale {
     0%,
     65% {
