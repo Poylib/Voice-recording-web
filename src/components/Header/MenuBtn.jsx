@@ -23,26 +23,26 @@ let Container = styled.div`
   .bar1,
   .bar2,
   .bar3 {
+    margin: 6px 0;
     width: 35px;
     height: 5px;
     background-color: ${mainColor};
-    margin: 6px 0;
     transition: 0.4s;
   }
   &.change {
     .bar1 {
+      background-color: white;
       -webkit-transform: rotate(-45deg) translate(-8px, 8px);
       transform: rotate(-45deg) translate(-8px, 8px);
-      background-color: white;
     }
     .bar2 {
-      opacity: 0;
       background-color: white;
+      opacity: 0;
     }
     .bar3 {
+      background-color: white;
       -webkit-transform: rotate(45deg) translate(-8px, -8px);
       transform: rotate(45deg) translate(-8px, -8px);
-      background-color: white;
     }
   }
 `;

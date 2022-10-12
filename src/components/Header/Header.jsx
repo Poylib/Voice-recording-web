@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import RecordBtn from './RecordBtn';
 import Logo from './Logo';
 import MenuBtn from './MenuBtn';
-import { useState } from 'react';
 import SideBar from './SideBar';
 
 const Header = () => {
@@ -21,11 +21,11 @@ const Header = () => {
 };
 
 const StyledHeader = styled.div`
-  height: 35px;
-  margin: 10px 0;
   display: flex;
   justify-content: space-between;
   padding: 0 15px;
+  margin: 10px 0;
+  height: 35px;
 `;
 
 export default Header;
