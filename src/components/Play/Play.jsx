@@ -88,6 +88,7 @@ const Play = () => {
         <AudioPlayer
           autoPlay
           src={musicTracks[trackIndex].src}
+          layout='stacked-reverse'
           onPlay={e => console.log('onPlay')}
           showSkipControls={true}
           showJumpControls={false}
@@ -102,7 +103,6 @@ const Play = () => {
 };
 
 let Title = styled.h1`
-  border: 1px solid gray;
   width: 90%;
   margin: auto;
   margin-top: 7%;
