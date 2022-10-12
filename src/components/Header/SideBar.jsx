@@ -6,6 +6,7 @@ const SideBar = ({ openSide }) => {
     <StyledSideBar openSide={openSide}>
       <div className='side-head'>녹음 리스트</div>
       <ul className='side-body'>
+        {/* 녹음 로컬스토리지 저장 후 로직 추가 예정 */}
         <li>녹음된 파일 1</li>
         <li>녹음된 파일 1</li>
         <li>녹음된 파일 1</li>
