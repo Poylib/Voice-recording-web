@@ -1,9 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import GlobalStyle from './GrobalStyle';
-import Play from './components/Play/Play';
-import PlayList from './page/PlayList';
+import Play from './components/play/Play';
 import Record from './page/Record';
-import Header from './components/Header/Header';
+import Header from './components/header/Header';
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Play />} />
         <Route path='/record' element={<Record />} />
-        <Route path='/playlist' element={<PlayList />} />
       </Routes>
     </>
   );

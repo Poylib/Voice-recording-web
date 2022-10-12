@@ -1,20 +1,49 @@
 import styled from 'styled-components';
-import { FiMenu } from 'react-icons/fi';
+import { mainColor } from '../../Theme';
 
-const MenuBtn = () => {
+const MenuBtn = ({ openSide, setOpenSide }) => {
+  const BtnChange = e => {
+    setOpenSide(!openSide);
+    e.currentTarget.classList.toggle('change');
+  };
   return (
-    <Container>
-      <FiMenu className='menu-btn' />
+    <Container onClick={BtnChange}>
+      <div className='bar1'></div>
+      <div className='bar2'></div>
+      <div className='bar3'></div>
     </Container>
   );
 };
 
 let Container = styled.div`
-  margin-right: 2%;
-
-  .menu-btn {
-    font-size: 190%;
-    color: #aaa;
+  z-index: 30;
+  div {
+    border-radius: 5px;
+  }
+  .bar1,
+  .bar2,
+  .bar3 {
+    margin: 6px 0;
+    width: 35px;
+    height: 5px;
+    background-color: ${mainColor};
+    transition: 0.4s;
+  }
+  &.change {
+    .bar1 {
+      background-color: white;
+      -webkit-transform: rotate(-45deg) translate(-8px, 8px);
+      transform: rotate(-45deg) translate(-8px, 8px);
+    }
+    .bar2 {
+      background-color: white;
+      opacity: 0;
+    }
+    .bar3 {
+      background-color: white;
+      -webkit-transform: rotate(45deg) translate(-8px, -8px);
+      transform: rotate(45deg) translate(-8px, -8px);
+    }
   }
 `;
 
