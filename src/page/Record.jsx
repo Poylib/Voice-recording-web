@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import PlayButton from '../components/Record/PlayButton';
-import { FaMicrophoneAlt } from 'react-icons/fa';
+import MaximumSeconds from '../components/Record/MaximumSeconds';
 import styled from 'styled-components';
-import { mainColor } from '../theme';
 
-const Record = () => {
+const Record = ({ audioList, setAudioList }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
-  const [onRec, setOnRec] = useState(true);
+  const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audioUrl, setAudioUrl] = useState();
@@ -15,6 +14,19 @@ const Record = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [maxSeconds, setMaxSeconds] = useState(30);
   const countRef = useRef(null);
+
+  useEffect(() => {
+    if (audioUrl && recOn) {
+      onSubmitAudioFile();
+    }
+  }, [recOn]);
+
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
+  let hours = today.getHours();
+  let minutes = today.getMinutes();
 
   const startHandler = () => {
     countRef.current = setInterval(() => setCount(c => c + 1), 1000);
@@ -74,10 +86,10 @@ const Record = () => {
 
           mediaRecorder.ondataavailable = function (e) {
             setAudioUrl(e.data);
-            setOnRec(true);
+            setRecOn(true);
           };
         } else {
-          setOnRec(false);
+          setRecOn(false);
         }
       };
     });
@@ -86,7 +98,7 @@ const Record = () => {
   const stopRecord = () => {
     media.ondataavailable = function (e) {
       setAudioUrl(e.data);
-      setOnRec(true);
+      setRecOn(true);
     };
 
     stream.getAudioTracks().forEach(function (track) {
@@ -99,36 +111,36 @@ const Record = () => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
+    const fullLength = audioList.length;
     if (audioUrl) {
-      console.log(URL.createObjectURL(audioUrl));
+      setAudioList([
+        ...audioList,
+        {
+          id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
+          title: year + '-' + month + '-' + date + '/' + hours + ':' + minutes,
+          url: URL.createObjectURL(audioUrl),
+        },
+      ]);
     }
-    const sound = new File([audioUrl], 'soundBlob', { lastModified: new Date().getTime(), type: 'audio' });
-    console.log(sound);
   }, [audioUrl]);
 
   const handleSelect = e => {
     setMaxSeconds(e.target.value);
-    console.log(e.target.value);
   };
 
   return (
-    <RecordBlock>
-      <FaMicrophoneAlt className='record-icon' alt='record' size={50} />
+    <RecordBlock recOn={recOn}>
       <p className='timer'>{count.toHHMMSS()}</p>
-      <div className='select-box'>
-        <label for='max-select'>Maximum Seconds</label>
-        <select name='pets' id='max-select' onChange={handleSelect}>
-          <option value={30}>30 sec</option>
-          <option value={60}>60 sec</option>
-          <option value={90}>90 sec</option>
-          <option value={120}>120 sec</option>
-          <option value={150}>150 sec</option>
-          <option value={180}>180 sec</option>
-        </select>
+      <MaximumSeconds handleSelect={handleSelect} recOn={recOn} maxSeconds={maxSeconds} />
+      <div className='recording-alert'>
+        <div className='recording-light'>
+          <div className={recOn ? 'backlight-off' : 'backlight-on'} />
+        </div>
+        REC
       </div>
       <PlayButton //
         isRecord={true}
-        onRec={onRec}
+        recOn={recOn}
         startRecord={startRecord}
         stopRecord={stopRecord}
         startHandler={startHandler}
@@ -146,25 +158,46 @@ const RecordBlock = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
-
-  .record-icon {
-    color: ${mainColor};
-  }
+  height: 85vh;
   .timer {
     font-size: 32px;
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
-  .select-box {
+  .recording-alert {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    margin: 90px 0 30px 0;
+    color: ${props => (props.recOn ? 'black' : 'red')};
     font-weight: 700;
-
-    #max-select {
-      width: 80px;
-      margin: 10px 0;
+    .recording-light {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 13px;
+      width: 13px;
+      border-radius: 100%;
+      margin-right: 5px;
+      background-color: ${props => (props.recOn ? 'black' : 'red')};
+      animation: clickEffect 0.8s ease-out;
+      .backlight-on {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        border-radius: 20px;
+        background-color: rgba(208, 107, 0, 0.6);
+        animation: scale 2s infinite alternate;
+      }
+    }
+  }
+  @keyframes scale {
+    0%,
+    65% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 `;

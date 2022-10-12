@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { FaPlay, FaStop, FaPause } from 'react-icons/fa';
+import { FaPlay, FaStop, FaPause, FaMicrophoneAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { mainColor } from '../../theme';
 
 const PlayButton = ({
   isRecord,
-  onRec,
+  recOn,
   startRecord,
   stopRecord,
   startHandler,
@@ -21,13 +21,12 @@ const PlayButton = ({
         onClick={() => {
           clickButton();
           if (isRecord) {
-            if (onRec) {
+            if (recOn) {
               startRecord();
               startHandler();
             } else {
               stopRecord();
               stopHandler();
-              onSubmitAudioFile();
             }
           }
         }}
@@ -39,7 +38,7 @@ const PlayButton = ({
             <FaPause size={30} alt='pause' />
           )
         ) : (
-          <FaPlay size={30} alt='play' />
+          <FaMicrophoneAlt size={35} alt='play' />
         )}
       </button>
     </PlayButtonBlock>
