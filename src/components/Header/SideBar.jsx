@@ -6,7 +6,7 @@ const SideBar = ({ openSide }) => {
     <StyledSideBar openSide={openSide}>
       <div className='side-head'>녹음 리스트</div>
       <ul className='side-body'>
-        <li>녹음된 파일 11</li>
+        <li>녹음된 파일 1</li>
         <li>녹음된 파일 1</li>
         <li>녹음된 파일 1</li>
         <li>녹음된 파일 1</li>
