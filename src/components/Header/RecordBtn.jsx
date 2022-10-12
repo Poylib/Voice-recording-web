@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FaMicrophoneAlt } from 'react-icons/fa';
+import { mainColor } from '../../Theme';
 
 const RecordBtn = () => {
   return (
@@ -14,7 +15,7 @@ let Container = styled.div`
 
   .record-icon {
     font-size: 180%;
-    color: #00aac5;
+    color: ${mainColor};
   }
 `;
 
