@@ -2,23 +2,30 @@ import styled from 'styled-components';
 import RecordBtn from './RecordBtn';
 import Logo from './Logo';
 import MenuBtn from './MenuBtn';
+import { useState } from 'react';
+import SideBar from './SideBar';
 
 const Header = () => {
+  const [openSide, setOpenSide] = useState(false);
+
   return (
-    <Section>
-      <RecordBtn />
-      <Logo />
-      <MenuBtn />
-    </Section>
+    <>
+      <StyledHeader>
+        <RecordBtn />
+        <Logo />
+        <MenuBtn openSide={openSide} setOpenSide={setOpenSide} />
+      </StyledHeader>
+      <SideBar openSide={openSide} />
+    </>
   );
 };
 
-let Section = styled.section`
-  width: 100%;
+const StyledHeader = styled.div`
+  height: 35px;
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
-  text-align: center;
-  margin-top: 15px;
+  padding: 0 15px;
 `;
 
 export default Header;

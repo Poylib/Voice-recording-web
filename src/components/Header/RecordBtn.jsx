@@ -11,10 +11,10 @@ const RecordBtn = () => {
 };
 
 let Container = styled.div`
-  margin-left: 2%;
-
+  text-align: center;
+  line-height: 35px;
   .record-icon {
-    font-size: 180%;
+    font-size: 200%;
     color: ${mainColor};
   }
 `;

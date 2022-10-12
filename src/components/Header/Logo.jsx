@@ -10,7 +10,11 @@ const Logo = () => {
 };
 
 let Container = styled.div`
-  width: 28%;
+  line-height: 35px;
+  width: 40%;
+  max-width: 250px;
+  min-width: 180px;
+  text-align: center;
   img {
     width: 100%;
   }
