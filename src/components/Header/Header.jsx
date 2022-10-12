@@ -22,7 +22,7 @@ const Header = () => {
 
 const StyledHeader = styled.div`
   height: 35px;
-  margin-top: 10px;
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
   padding: 0 15px;

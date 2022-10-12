@@ -31,16 +31,18 @@ let Container = styled.div`
   }
   &.change {
     .bar1 {
-      /* -webkit-transform: rotate(-45deg) translate(-8px, 8px); */
-      /* transform: rotate(-45deg) translate(-8px, 8px); */
+      -webkit-transform: rotate(-45deg) translate(-8px, 8px);
       transform: rotate(-45deg) translate(-8px, 8px);
+      background-color: white;
     }
     .bar2 {
       opacity: 0;
+      background-color: white;
     }
     .bar3 {
-      /* -webkit-transform: rotate(45deg) translate(-8px, -8px); */
+      -webkit-transform: rotate(45deg) translate(-8px, -8px);
       transform: rotate(45deg) translate(-8px, -8px);
+      background-color: white;
     }
   }
 `;
