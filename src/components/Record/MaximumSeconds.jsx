@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const MaximumSeconds = ({ handleSelect }) => {
+const MaximumSeconds = ({ handleSelect, onRec }) => {
   return (
     <MaximumSecondsBlock>
       <label htmlFor='max-select'>Maximum Seconds</label>
-      <select name='pets' id='max-select' onChange={handleSelect}>
+      <select name='pets' id='max-select' onChange={handleSelect} disabled={onRec ? false : true}>
         <option value={30}>30 sec</option>
         <option value={60}>60 sec</option>
         <option value={90}>90 sec</option>

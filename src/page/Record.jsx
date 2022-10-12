@@ -111,10 +111,12 @@ const Record = ({ audioList, setAudioList }) => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
+    const fullLength = audioList.length;
     if (audioUrl) {
       setAudioList([
         ...audioList,
         {
+          id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
           title: year + '-' + month + '-' + date + '/' + hours + ':' + minutes,
           url: URL.createObjectURL(audioUrl),
         },
@@ -130,7 +132,7 @@ const Record = ({ audioList, setAudioList }) => {
   return (
     <RecordBlock onRec={onRec}>
       <p className='timer'>{count.toHHMMSS()}</p>
-      <MaximumSeconds handleSelect={handleSelect} />
+      <MaximumSeconds handleSelect={handleSelect} onRec={onRec} />
       <div className='recording-alert'>
         <div className='recording-light'>
           <div className={onRec ? 'backlight-off' : 'backlight-on'} />
