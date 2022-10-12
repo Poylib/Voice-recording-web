@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import PlayButton from '../components/Record/PlayButton';
-import { FaMicrophoneAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { mainColor } from '../theme';
 
@@ -112,8 +111,7 @@ const Record = () => {
   };
 
   return (
-    <RecordBlock>
-      <FaMicrophoneAlt className='record-icon' alt='record' size={50} />
+    <RecordBlock onRec={onRec}>
       <p className='timer'>{count.toHHMMSS()}</p>
       <div className='select-box'>
         <label for='max-select'>Maximum Seconds</label>
@@ -125,6 +123,9 @@ const Record = () => {
           <option value={150}>150 sec</option>
           <option value={180}>180 sec</option>
         </select>
+      </div>
+      <div className='recording-alert'>
+        <div className='recording-light' /> REC
       </div>
       <PlayButton //
         isRecord={true}
@@ -146,11 +147,8 @@ const RecordBlock = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 90vh;
 
-  .record-icon {
-    color: ${mainColor};
-  }
   .timer {
     font-size: 32px;
     font-weight: 700;
@@ -164,7 +162,39 @@ const RecordBlock = styled.div`
 
     #max-select {
       width: 80px;
-      margin: 10px 0;
+      margin-top: 10px;
+    }
+  }
+
+  .recording-alert {
+    display: flex;
+    align-items: center;
+    margin: 50px 0 30px 0;
+    color: ${props => (props.onRec ? 'black' : 'red')};
+    font-weight: 700;
+    .recording-light {
+      height: 13px;
+      width: 13px;
+      border-radius: 100%;
+      margin-right: 5px;
+      background-color: ${props => (props.onRec ? 'black' : 'red')};
+    }
+  }
+
+  @keyframes clickEffect {
+    0% {
+      opacity: 1;
+      width: 0.5em;
+      height: 0.5em;
+      margin: -0.25em;
+      border-width: 0.3rem;
+    }
+    100% {
+      opacity: 0.1;
+      width: 15em;
+      height: 15em;
+      margin: -7.5em;
+      border-width: 0.01rem;
     }
   }
 `;

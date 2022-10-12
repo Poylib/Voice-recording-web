@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaPlay, FaStop, FaPause } from 'react-icons/fa';
+import { FaPlay, FaStop, FaPause, FaMicrophoneAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { mainColor } from '../../theme';
 
@@ -39,7 +39,7 @@ const PlayButton = ({
             <FaPause size={30} alt='pause' />
           )
         ) : (
-          <FaPlay size={30} alt='play' />
+          <FaMicrophoneAlt size={35} alt='play' />
         )}
       </button>
     </PlayButtonBlock>
@@ -58,9 +58,27 @@ const PlayButtonBlock = styled.div`
     background-color: ${mainColor};
     color: white;
     cursor: pointer;
+    animation: clickEffect 0.8s ease-out;
 
     &:active {
       background-color: #016373;
+    }
+  }
+
+  @keyframes clickEffect {
+    0% {
+      opacity: 1;
+      width: 0.5em;
+      height: 0.5em;
+      margin: -0.25em;
+      border-width: 0.3rem;
+    }
+    100% {
+      opacity: 0.1;
+      width: 15em;
+      height: 15em;
+      margin: -7.5em;
+      border-width: 0.01rem;
     }
   }
 `;
