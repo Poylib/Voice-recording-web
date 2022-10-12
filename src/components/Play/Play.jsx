@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import 'react-h5-audio-player/lib/styles.css';
 import './CustomPlay.css';
 
-import Duration from './Duration';
+import Wave from './Wave';
 
 const Play = () => {
   const musicTracks = [
@@ -83,8 +83,8 @@ const Play = () => {
 
   return (
     <section>
+      <Title>제목: {musicTracks[trackIndex].name}</Title>
       <div className='App'>
-        <Title>제목: {musicTracks[trackIndex].name}</Title>
         <AudioPlayer
           autoPlay
           src={musicTracks[trackIndex].src}
@@ -96,8 +96,8 @@ const Play = () => {
           onClickNext={handleClickNext}
           onEnded={handleClickNext}
         />
-        <Wave>파장</Wave>
       </div>
+      <Wave />
     </section>
   );
 };
@@ -110,13 +110,4 @@ let Title = styled.h1`
   font-size: 30px;
 `;
 
-let Wave = styled.div`
-  width: 90%;
-  height: 300px;
-  margin: auto;
-  background-color: lightblue;
-  font-size: 20px;
-`;
-
-//box-shadow: 0 0 3px 0 rgb(0 0 0 / 20%);
 export default Play;
