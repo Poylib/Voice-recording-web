@@ -27,7 +27,6 @@ const PlayButton = ({
             } else {
               stopRecord();
               stopHandler();
-              onSubmitAudioFile();
             }
           }
         }}
@@ -58,27 +57,9 @@ const PlayButtonBlock = styled.div`
     background-color: ${mainColor};
     color: white;
     cursor: pointer;
-    animation: clickEffect 0.8s ease-out;
 
     &:active {
       background-color: #016373;
-    }
-  }
-
-  @keyframes clickEffect {
-    0% {
-      opacity: 1;
-      width: 0.5em;
-      height: 0.5em;
-      margin: -0.25em;
-      border-width: 0.3rem;
-    }
-    100% {
-      opacity: 0.1;
-      width: 15em;
-      height: 15em;
-      margin: -7.5em;
-      border-width: 0.01rem;
     }
   }
 `;
