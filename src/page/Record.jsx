@@ -116,7 +116,7 @@ const Record = () => {
       <FaMicrophoneAlt className='record-icon' alt='record' size={50} />
       <p className='timer'>{count.toHHMMSS()}</p>
       <div className='select-box'>
-        <label for='max-select'>Maximum Seconds</label>
+        <label htmlFor='max-select'>Maximum Seconds</label>
         <select name='pets' id='max-select' onChange={handleSelect}>
           <option value={30}>30 sec</option>
           <option value={60}>60 sec</option>
