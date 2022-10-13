@@ -11,7 +11,7 @@ const SaveCompelete = ({ isMessageOn, setIsMessageOn }) => {
 
 const SaveCompeleteBlock = styled.div`
   position: absolute;
-  bottom: 10vh;
+  bottom: 5vh;
   color: ${mainColor};
   font-size: 16.5px;
   font-weight: 700;

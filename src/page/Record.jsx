@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { ref, uploadBytes } from 'firebase/storage';
-import { storage } from '../firebase';
+import storage from '../firebase';
 import PlayButton from '../components/Record/PlayButton';
 import MaximumSeconds from '../components/Record/MaximumSeconds';
 import SaveCompelete from '../components/Record/SaveCompelete';
@@ -180,7 +180,7 @@ const RecordBlock = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 80vh;
   .timer {
     font-size: 48px;
     font-weight: 700;
