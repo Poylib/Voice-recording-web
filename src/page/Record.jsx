@@ -117,7 +117,7 @@ const Record = ({ audioList, setAudioList }) => {
         ...audioList,
         {
           id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
-          title: year + '-' + month + '-' + date + '/' + hours + ':' + minutes,
+          title: year + '-' + month + '-' + date + '/' + hours + 'h' + minutes + 'm',
           url: URL.createObjectURL(audioUrl),
         },
       ]);
@@ -193,7 +193,7 @@ const RecordBlock = styled.div`
   }
   @keyframes scale {
     0%,
-    65% {
+    50% {
       transform: scale(0);
     }
     100% {
