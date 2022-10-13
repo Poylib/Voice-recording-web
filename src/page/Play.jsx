@@ -11,7 +11,6 @@ const Play = ({ selectedRecord }) => {
       {params.id ? (
         <Container>
           <Title className='title'>{`제목 : ${params.id}`}</Title>
-          <Download />
         </Container>
       ) : (
         <Empty />

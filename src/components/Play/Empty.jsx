@@ -11,7 +11,7 @@ const Empty = () => {
 
 const Section = styled.section`
   div {
-    width: 30%;
+    width: 80%;
     margin: auto;
     margin-top: 4%;
     font-size: 20px;
