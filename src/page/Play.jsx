@@ -1,22 +1,34 @@
 import styled from 'styled-components';
 import Download from '../components/Play/Download';
+import List from '../components/Play/List';
 import WaveForm from '../components/Play/WaveForm';
 
 const Play = () => {
   return (
-    <section>
-      <Title>제목:</Title>
+    <Section>
+      <Container>
+        <Title>제목:2022.10.13</Title>
+        <Download />
+      </Container>
       <WaveForm />
-      <Download />
-    </section>
+      <List />
+    </Section>
   );
 };
 
-let Title = styled.h1`
+const Section = styled.section`
+  margin-top: 20%;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 90%;
   margin: auto;
-  margin-top: 7%;
-  margin-bottom: 3%;
+`;
+
+const Title = styled.h1`
   font-size: 30px;
 `;
 

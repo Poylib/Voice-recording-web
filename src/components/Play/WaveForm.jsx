@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
 import { mainColor } from '../../theme';
+import { BsFillPlayFill } from 'react-icons/bs';
+import { BsFillPauseFill } from 'react-icons/bs';
 
 const WaveForm = () => {
   const [play, setPlay] = useState(true);
@@ -28,7 +30,7 @@ const WaveForm = () => {
         barMinHeight: 1,
         cursorWidth: 1,
         backend: 'WebAudio',
-        height: 80,
+        height: 180,
         progressColor: '#00aac5',
         responsive: true,
         waveColor: '#C4C4C4',
@@ -40,7 +42,9 @@ const WaveForm = () => {
   }, [url]);
   return (
     <WaveformContianer>
-      <PlayButton onClick={handlePlay}>{play ? 'Play' : 'Pause'}</PlayButton>
+      <PlayButton onClick={handlePlay}>
+        {play ? <BsFillPlayFill className='play-btn' /> : <BsFillPauseFill className='pause-btn' />}
+      </PlayButton>
       <Wave id='waveform' ref={waveformRef} />
       <audio id='track' src={url} />
       <div>0.52</div>
@@ -53,25 +57,27 @@ const WaveformContianer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100px;
-  width: 85%;
+  width: 87%;
   margin: auto;
+  margin-top: 7%;
   background: transparent;
   gap: 2rem;
+  div {
+    font-size: 30px;
+  }
 `;
 
 const Wave = styled.div`
   width: 100%;
-  height: 90px;
 `;
 
 const PlayButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
-  background: #c2f2fa;
+  width: 90px;
+  height: 70px;
+  background: #b9e4eb;
   border-radius: 50%;
   border: none;
   outline: none;
@@ -79,6 +85,13 @@ const PlayButton = styled.button`
   padding-bottom: 3px;
   &:hover {
     background: ${mainColor};
+    color: white;
+  }
+  .play-btn {
+    font-size: 30px;
+  }
+  .pause-btn {
+    font-size: 30px;
   }
 `;
 export default WaveForm;
