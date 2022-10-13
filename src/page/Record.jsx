@@ -16,7 +16,7 @@ const Record = ({ recOn, setRecOn }) => {
   const [count, setCount] = useState(0);
   const [isMessageOn, setIsMessageOn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [maxSeconds, setMaxSeconds] = useState(Infinity);
+  const [maxSeconds, setMaxSeconds] = useState(30);
   const countRef = useRef(null);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ const Record = ({ recOn, setRecOn }) => {
       makeSound(stream);
 
       analyser.onaudioprocess = function (e) {
-        if (e.playbackTime > maxSeconds) {
+        if (e.playbackTime > maxSeconds + 0.9) {
           stream.getAudioTracks().forEach(function (track) {
             track.stop();
             stopHandler();
@@ -134,14 +134,10 @@ const Record = ({ recOn, setRecOn }) => {
     setAudio(sound);
   }, [audioUrl]);
 
-  const handleSelect = e => {
-    setMaxSeconds(e.target.value);
-  };
-
   return (
     <RecordBlock recOn={recOn}>
       <p className='timer'>{count.toHHMMSS()}</p>
-      <MaximumSeconds handleSelect={handleSelect} recOn={recOn} maxSeconds={maxSeconds} />
+      <MaximumSeconds recOn={recOn} maxSeconds={maxSeconds} setMaxSeconds={setMaxSeconds} />
       <div className='recording-alert'>
         <div className='recording-light'>
           <div className={recOn ? 'backlight-off' : 'backlight-on'} />
@@ -172,7 +168,7 @@ const RecordBlock = styled.div`
   .timer {
     font-size: 48px;
     font-weight: 700;
-    margin: 40px 0 20px 0;
+    margin: 40px 0 30px 0;
   }
   .recording-alert {
     display: flex;
@@ -219,7 +215,6 @@ const RecordBlock = styled.div`
     .timer {
       font-size: 32px;
       font-weight: 700;
-      margin: 40px 0 20px 0;
     }
     .recording-alert {
       font-size: 16px;
