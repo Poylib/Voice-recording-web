@@ -6,10 +6,9 @@ import MaximumSeconds from '../components/Record/MaximumSeconds';
 import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
-const Record = ({ audioList, setAudioList }) => {
+const Record = ({ audioList, setAudioList, recOn, setRecOn }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
-  const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audio, setAudio] = useState();
