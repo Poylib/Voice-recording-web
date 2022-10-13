@@ -1,13 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getStorage, ref, listAll } from 'firebase/storage';
+import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
+import storage from '../../firebase';
 import { mainColor } from '../../Theme';
 
-const SideBar = ({ openSide, audioList }) => {
+const SideBar = ({ openSide }) => {
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
-  const storage = getStorage();
-  // console.log(storage);
+  const [audioList, setAudioList] = useState('');
+  const audioRef = ref(storage, `audio`);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { items } = await listAll(audioRef);
+        setAudioList(items.reverse());
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const handleSelect = async storageRef => {
+    if (storageRef.name !== curAudioName) {
+      setIsAudioLoading(true);
+      setCurAudioName(storageRef.name);
+
+      try {
+        const url = await getDownloadURL(storageRef);
+        setCurAudioURL(url);
+        setIsAudioLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsAudioLoading(false);
+      }
+    }
+  };
 
   const clickList = e => {
     setClickNum(e.currentTarget.value);
@@ -21,10 +49,10 @@ const SideBar = ({ openSide, audioList }) => {
           <ul className='side-body'>
             {audioList.map((list, index) => {
               return (
-                <li key={list.id} value={index} onClick={clickList}>
+                <li key={list.name} value={index} onClick={clickList}>
                   <div className='date-name'>
-                    <span>{list.title.split('/')[0]}</span>
-                    <span>{list.title.split('/')[1]}</span>
+                    <span>{list.name.split('|')[0]}</span>
+                    <span>{list.name.split('|')[1]}</span>
                   </div>
                   {clickNum === index && (
                     <div>
