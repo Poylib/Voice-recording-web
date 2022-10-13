@@ -11,7 +11,7 @@ const Play = ({ selectedRecord }) => {
     <Section>
       {params.id ? (
         <Container>
-          <Title>{`제목 : ${params.id}`}</Title>
+          <Title className='title'>{`제목 : ${params.id}`}</Title>
           <Download />
         </Container>
       ) : (
@@ -36,7 +36,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
+
+  @media screen and(max-width: 480px) {
+    .title {
+      font-size: 15px;
+    }
+  }
 `;
 
 export default Play;
