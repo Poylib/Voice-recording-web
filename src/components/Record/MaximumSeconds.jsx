@@ -8,10 +8,10 @@ import styled from 'styled-components';
 const MaximumSeconds = ({ handleSelect, recOn, maxSeconds }) => {
   return (
     <MaximumSecondsBlock>
-      <div className='title'>Choose Maximum Seconds</div>
+      <div className='title'>타이머 설정</div>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id='demo-simple-select-label'>limit</InputLabel>
+          <InputLabel id='demo-simple-select-label'>최대</InputLabel>
           <Select
             labelId='demo-simple-select-label'
             id='demo-simple-select'
@@ -20,13 +20,13 @@ const MaximumSeconds = ({ handleSelect, recOn, maxSeconds }) => {
             onChange={handleSelect}
             disabled={recOn ? false : true}
           >
+            <MenuItem value={Infinity}>없음</MenuItem>
             <MenuItem value={30}>30 sec</MenuItem>
             <MenuItem value={60}>60 sec</MenuItem>
             <MenuItem value={90}>90 sec</MenuItem>
             <MenuItem value={120}>120 sec</MenuItem>
             <MenuItem value={150}>150 sec</MenuItem>
             <MenuItem value={180}>180 sec</MenuItem>
-            <MenuItem value={Infinity}>no-limit</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -41,8 +41,13 @@ const MaximumSecondsBlock = styled.div`
   font-weight: 700;
   .title {
     margin-bottom: 15px;
-    font-size: 13px;
+    font-size: 18px;
     color: rgba(0, 0, 0, 0.5);
+  }
+  @media screen and (max-width: 480px) {
+    .title {
+      font-size: 13px;
+    }
   }
 `;
 

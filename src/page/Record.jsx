@@ -12,7 +12,7 @@ const Record = ({ audioList, setAudioList }) => {
   const [audioUrl, setAudioUrl] = useState();
   const [count, setCount] = useState(0);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [maxSeconds, setMaxSeconds] = useState(30);
+  const [maxSeconds, setMaxSeconds] = useState(Infinity);
   const countRef = useRef(null);
 
   useEffect(() => {
@@ -160,31 +160,34 @@ const RecordBlock = styled.div`
   justify-content: center;
   height: 85vh;
   .timer {
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
   .recording-alert {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 90px 0 30px 0;
     color: ${props => (props.recOn ? 'black' : 'red')};
+    font-size: 20px;
     font-weight: 700;
+
     .recording-light {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 13px;
-      width: 13px;
+      height: 19px;
+      width: 19px;
       border-radius: 100%;
       margin-right: 5px;
       background-color: ${props => (props.recOn ? 'black' : 'red')};
       animation: clickEffect 0.8s ease-out;
       .backlight-on {
         position: absolute;
-        width: 26px;
-        height: 26px;
+        width: 38px;
+        height: 38px;
         border-radius: 20px;
         background-color: rgba(208, 107, 0, 0.6);
         animation: scale 2s infinite alternate;
@@ -198,6 +201,26 @@ const RecordBlock = styled.div`
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .timer {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+    }
+    .recording-alert {
+      font-size: 16px;
+      .recording-light {
+        height: 13px;
+        width: 13px;
+
+        .backlight-on {
+          width: 26px;
+          height: 26px;
+        }
+      }
     }
   }
 `;

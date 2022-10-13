@@ -33,12 +33,12 @@ const PlayButton = ({
       >
         {buttonClicked ? (
           isRecord ? (
-            <FaStop size={30} alt='stop' />
+            <FaStop className='icon' alt='stop' />
           ) : (
-            <FaPause size={30} alt='pause' />
+            <FaPause className='icon' alt='pause' />
           )
         ) : (
-          <FaMicrophoneAlt size={35} alt='play' />
+          <FaMicrophoneAlt className='icon' alt='play' />
         )}
       </button>
     </PlayButtonBlock>
@@ -50,16 +50,31 @@ const PlayButtonBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 125px;
+    height: 125px;
     border: none;
     border-radius: 100%;
     background-color: ${mainColor};
     color: white;
     cursor: pointer;
 
+    .icon {
+      transform: scale(3);
+    }
+
     &:active {
       background-color: #016373;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    button {
+      width: 100px;
+      height: 100px;
+
+      .icon {
+        transform: scale(2);
+      }
     }
   }
 `;
