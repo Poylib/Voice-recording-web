@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import PlayButton from '../components/Record/PlayButton';
 import MaximumSeconds from '../components/Record/MaximumSeconds';
 import styled from 'styled-components';
