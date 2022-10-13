@@ -1,11 +1,17 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-
 import styled from 'styled-components';
 
 const MaximumSeconds = ({ recOn, maxSeconds, setMaxSeconds }) => {
+  let timer;
+
   const handleSelect = e => {
-    setMaxSeconds(e.target.value);
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      setMaxSeconds(e.target.value);
+    }, 30);
   };
 
   return (
