@@ -9,14 +9,16 @@ const Play = ({ selectedRecord }) => {
 
   return (
     <Section>
-      {params.id && (
+      {params.id ? (
         <Container>
           <Title>{`제목 : ${params.id}`}</Title>
           <Download />
         </Container>
+      ) : (
+        <Empty />
       )}
 
-      {selectedRecord !== '' ? <WaveForm selectedRecord={selectedRecord} /> : <span>empty</span>}
+      {selectedRecord !== '' ? <WaveForm selectedRecord={selectedRecord} /> : null}
     </Section>
   );
 };

@@ -13,8 +13,8 @@ const Section = styled.section`
   div {
     width: 30%;
     margin: auto;
-    margin-top: 5%;
-    font-size: 25px;
+    margin-top: 4%;
+    font-size: 20px;
     color: gray;
     text-align: center;
   }
