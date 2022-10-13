@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const SaveCompelete = ({ isMessageOn, setIsMessageOn }) => {
   useEffect(() => {
-    isMessageOn && setTimeout(() => setIsMessageOn(false), 2000);
+    isMessageOn && setTimeout(() => setIsMessageOn(false), 2500);
   }, [isMessageOn]);
   return <SaveCompeleteBlock>{isMessageOn && 'Firebase Storage에 저장되었습니다.'}</SaveCompeleteBlock>;
 };

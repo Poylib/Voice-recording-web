@@ -6,11 +6,13 @@ import { mainColor } from '../../theme';
 import { BsFillPlayFill } from 'react-icons/bs';
 import { BsFillPauseFill } from 'react-icons/bs';
 
-const WaveForm = () => {
+const WaveForm = ({ selectedRecord }) => {
+  console.log(selectedRecord);
   const [play, setPlay] = useState(true);
+  // const [url, setUrl] = useState('https://www.bensound.com/bensound-music/bensound-love.mp3');
 
   const track = document.querySelector('#track');
-  const url = 'https://www.bensound.com/bensound-music/bensound-love.mp3';
+  // const url = 'https://www.bensound.com/bensound-music/bensound-love.mp3';
 
   const waveformRef = useRef();
   const wavesurfer = useRef(null);
@@ -21,6 +23,7 @@ const WaveForm = () => {
   };
 
   useEffect(() => {
+    // setUrl(selectedRecord);
     if (waveformRef.current) {
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
@@ -36,17 +39,17 @@ const WaveForm = () => {
         waveColor: '#C4C4C4',
         cursorColor: 'transparent',
       });
-      wavesurfer.current.load(url);
+      wavesurfer.current.load(selectedRecord);
     }
     return () => wavesurfer.current.destroy();
-  }, [url]);
+  }, [selectedRecord]);
   return (
     <WaveformContianer>
       <PlayButton onClick={handlePlay}>
         {play ? <BsFillPlayFill className='play-btn' /> : <BsFillPauseFill className='pause-btn' />}
       </PlayButton>
       <Wave id='waveform' ref={waveformRef} />
-      <audio id='track' src={url} />
+      <audio id='track' src={selectedRecord} />
       <div>0.52</div>
     </WaveformContianer>
   );

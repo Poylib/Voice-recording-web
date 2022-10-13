@@ -1,34 +1,18 @@
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
+
 import styled from 'styled-components';
 
-const MaximumSeconds = ({ handleSelect, recOn, maxSeconds }) => {
+const MaximumSeconds = ({ recOn, maxSeconds, setMaxSeconds }) => {
+  const handleSelect = e => {
+    setMaxSeconds(e.target.value);
+  };
+
   return (
     <MaximumSecondsBlock>
-      <div className='title'>타이머 설정</div>
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id='demo-simple-select-label'>최대</InputLabel>
-          <Select
-            labelId='demo-simple-select-label'
-            id='demo-simple-select'
-            label='Age'
-            value={maxSeconds}
-            onChange={handleSelect}
-            disabled={recOn ? false : true}
-          >
-            <MenuItem value={Infinity}>없음</MenuItem>
-            <MenuItem value={30}>30 sec</MenuItem>
-            <MenuItem value={60}>60 sec</MenuItem>
-            <MenuItem value={90}>90 sec</MenuItem>
-            <MenuItem value={120}>120 sec</MenuItem>
-            <MenuItem value={150}>150 sec</MenuItem>
-            <MenuItem value={180}>180 sec</MenuItem>
-          </Select>
-        </FormControl>
+      <div className='title'>타이머 설정 (현재 {maxSeconds}초)</div>
+      <Box sx={{ minWidth: 240 }}>
+        <Slider defaultValue={30} onChange={handleSelect} min={3} max={180} disabled={recOn ? false : true} />
       </Box>
     </MaximumSecondsBlock>
   );
@@ -40,7 +24,7 @@ const MaximumSecondsBlock = styled.div`
   flex-direction: column;
   font-weight: 700;
   .title {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 18px;
     color: rgba(0, 0, 0, 0.5);
   }
