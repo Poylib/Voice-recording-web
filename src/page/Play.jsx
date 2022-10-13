@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Download from '../components/Play/Download';
-import List from '../components/Play/List';
+import Empty from '../components/Play/Empty';
 import WaveForm from '../components/Play/WaveForm';
 
 const Play = ({ selectedRecord }) => {
@@ -9,15 +9,16 @@ const Play = ({ selectedRecord }) => {
 
   return (
     <Section>
-      {params.id && (
+      {params.id ? (
         <Container>
-          <Title>{`제목 : ${params.id}`}</Title>
+          <Title className='title'>{`제목 : ${params.id}`}</Title>
           <Download />
         </Container>
+      ) : (
+        <Empty />
       )}
 
-      {selectedRecord !== '' ? <WaveForm selectedRecord={selectedRecord} /> : <span>empty</span>}
-      <List />
+      {selectedRecord !== '' ? <WaveForm selectedRecord={selectedRecord} /> : null}
     </Section>
   );
 };
@@ -35,7 +36,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 30px;
+  font-size: 25px;
+
+  @media screen and(max-width: 480px) {
+    .title {
+      font-size: 15px;
+    }
+  }
 `;
 
 export default Play;
