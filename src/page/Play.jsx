@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import Download from '../components/Play/Download';
-import List from '../components/Play/List';
 import WaveForm from '../components/Play/WaveForm';
 
-const Play = () => {
+const Play = ({ audioList, setAudioList }) => {
   return (
     <Section>
       <Container>
@@ -11,7 +10,6 @@ const Play = () => {
         <Download />
       </Container>
       <WaveForm />
-      <List />
     </Section>
   );
 };
