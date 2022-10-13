@@ -1,24 +1,41 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../../Theme';
 
-const SideBar = ({ openSide }) => {
+const SideBar = ({ openSide, audioList }) => {
+  const [clickCheck, setClickCheck] = useState(false);
+  const [clickNum, setClickNum] = useState('');
+
+  const clickList = e => {
+    setClickNum(e.currentTarget.value);
+    setClickCheck(!clickCheck);
+  };
   return (
-    <StyledSideBar openSide={openSide}>
-      <div className='side-head'>녹음 리스트</div>
-      <ul className='side-body'>
-        {/* 녹음 로컬스토리지 저장 후 로직 추가 예정 */}
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-        <li>녹음된 파일 1</li>
-      </ul>
-    </StyledSideBar>
+    <>
+      {audioList && (
+        <StyledSideBar openSide={openSide}>
+          <div className='side-head'>녹음 리스트</div>
+          <ul className='side-body'>
+            {audioList.map((list, index) => {
+              return (
+                <li key={list.id} value={index} onClick={clickList}>
+                  <div className='date-name'>
+                    <span>{list.title.split('/')[0]}</span>
+                    <span>{list.title.split('/')[1]}</span>
+                  </div>
+                  {clickNum === index && (
+                    <div>
+                      <span>버튼자리</span>
+                      <span>버튼자리</span>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </StyledSideBar>
+      )}
+    </>
   );
 };
 
@@ -49,14 +66,26 @@ const StyledSideBar = styled.div`
   ul {
     overflow-y: auto;
     li {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
       height: 10vh;
-      line-height: 10vh;
+      padding: 0 10px;
       font-size: 130%;
       text-align: center;
       transition: box-shadow 0.3s;
       &:hover {
         box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
       }
+    }
+  }
+  .date-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span {
+      margin: 4px 0;
     }
   }
 `;

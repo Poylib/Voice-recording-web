@@ -5,7 +5,7 @@ import Logo from './Logo';
 import MenuBtn from './MenuBtn';
 import SideBar from './SideBar';
 
-const Header = () => {
+const Header = ({ audioList }) => {
   const [openSide, setOpenSide] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ const Header = () => {
         <Logo />
         <MenuBtn openSide={openSide} setOpenSide={setOpenSide} />
       </StyledHeader>
-      <SideBar openSide={openSide} />
+      <SideBar openSide={openSide} audioList={audioList} />
     </>
   );
 };
