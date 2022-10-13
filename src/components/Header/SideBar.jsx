@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import storage from '../../firebase';
 import { mainColor } from '../../Theme';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
-const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
+const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn }) => {
   const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
@@ -13,15 +13,16 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
   const audioRef = ref(storage, `audio`);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { items } = await listAll(audioRef);
-        setAudioList(items.reverse());
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
+    recOn &&
+      (async () => {
+        try {
+          const { items } = await listAll(audioRef);
+          setAudioList(items.reverse());
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+  }, [isMessageOn]);
 
   const clickList = async e => {
     setClickNum(e.currentTarget.value);
