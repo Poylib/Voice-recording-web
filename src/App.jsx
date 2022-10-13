@@ -22,7 +22,7 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/' element={<Play />} />
+        <Route path='/' element={<Play audioList={audioList} />} />
         <Route path='/record' element={<Record audioList={audioList} setAudioList={setAudioList} />} />
       </Routes>
     </>
