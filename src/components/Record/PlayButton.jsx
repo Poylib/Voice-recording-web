@@ -4,15 +4,14 @@ import styled from 'styled-components';
 import { mainColor } from '../../theme';
 
 const PlayButton = ({
-  isRecord,
   recOn,
   startRecord,
   stopRecord,
   startHandler,
   stopHandler,
-  onSubmitAudioFile,
   buttonClicked,
   setButtonClicked,
+  setIsMessageOn,
 }) => {
   const clickButton = () => setButtonClicked(!buttonClicked);
   return (
@@ -20,26 +19,17 @@ const PlayButton = ({
       <button
         onClick={() => {
           clickButton();
-          if (isRecord) {
-            if (recOn) {
-              startRecord();
-              startHandler();
-            } else {
-              stopRecord();
-              stopHandler();
-            }
+          if (recOn) {
+            startRecord();
+            startHandler();
+            setIsMessageOn(false);
+          } else {
+            stopRecord();
+            stopHandler();
           }
         }}
       >
-        {buttonClicked ? (
-          isRecord ? (
-            <FaStop className='icon' alt='stop' />
-          ) : (
-            <FaPause className='icon' alt='pause' />
-          )
-        ) : (
-          <FaMicrophoneAlt className='icon' alt='play' />
-        )}
+        {buttonClicked ? <FaStop className='icon' alt='stop' /> : <FaMicrophoneAlt className='icon' alt='play' />}
       </button>
     </PlayButtonBlock>
   );

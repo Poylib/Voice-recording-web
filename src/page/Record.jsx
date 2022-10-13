@@ -3,6 +3,7 @@ import { ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../firebase';
 import PlayButton from '../components/Record/PlayButton';
 import MaximumSeconds from '../components/Record/MaximumSeconds';
+import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
 const Record = ({ audioList, setAudioList }) => {
@@ -11,16 +12,13 @@ const Record = ({ audioList, setAudioList }) => {
   const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
+  const [audio, setAudio] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [count, setCount] = useState(0);
+  const [isMessageOn, setIsMessageOn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [maxSeconds, setMaxSeconds] = useState(Infinity);
   const countRef = useRef(null);
-
-  const [downloadUrl, setDownloadUrl] = useState('');
-  const [audio, setAudio] = useState();
-  const [error, setError] = useState('');
-  const [progress, setProgress] = useState(100);
 
   useEffect(() => {
     if (audioUrl && recOn) {
@@ -36,7 +34,7 @@ const Record = ({ audioList, setAudioList }) => {
     if (audio == null) return;
     const audioRef = ref(storage, `audio/${audio.name}`);
     uploadBytes(audioRef, audio).then(() => {
-      alert('Audio Uploaded');
+      setIsMessageOn(true);
     });
   };
 
@@ -120,7 +118,6 @@ const Record = ({ audioList, setAudioList }) => {
       setAudioUrl(e.data);
       setRecOn(true);
     };
-
     stream.getAudioTracks().forEach(function (track) {
       track.stop();
     });
@@ -147,7 +144,6 @@ const Record = ({ audioList, setAudioList }) => {
       type: 'audio',
     });
     setAudio(sound);
-    console.log(sound);
   }, [audioUrl]);
 
   const handleSelect = e => {
@@ -164,17 +160,17 @@ const Record = ({ audioList, setAudioList }) => {
         </div>
         REC
       </div>
-      <PlayButton //
-        isRecord={true}
+      <PlayButton
         recOn={recOn}
         startRecord={startRecord}
         stopRecord={stopRecord}
         startHandler={startHandler}
         stopHandler={stopHandler}
-        onSubmitAudioFile={onSubmitAudioFile}
         buttonClicked={buttonClicked}
         setButtonClicked={setButtonClicked}
+        setIsMessageOn={setIsMessageOn}
       />
+      <SaveCompelete isMessageOn={isMessageOn} setIsMessageOn={setIsMessageOn} />
     </RecordBlock>
   );
 };
@@ -210,6 +206,7 @@ const RecordBlock = styled.div`
       margin-right: 5px;
       background-color: ${props => (props.recOn ? 'black' : 'red')};
       animation: clickEffect 0.8s ease-out;
+
       .backlight-on {
         position: absolute;
         width: 38px;
