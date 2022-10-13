@@ -1,8 +1,4 @@
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Slider from '@mui/material/Slider';
 
 import styled from 'styled-components';
@@ -17,14 +13,7 @@ const MaximumSeconds = ({ recOn, maxSeconds, setMaxSeconds }) => {
     <MaximumSecondsBlock>
       <div className='title'>타이머 설정 (현재 {maxSeconds}초)</div>
       <Box sx={{ minWidth: 240 }}>
-        <Slider
-          defaultValue={30}
-          valueLabelDisplay='auto'
-          onChange={handleSelect}
-          min={3}
-          max={180}
-          disabled={recOn ? false : true}
-        />
+        <Slider defaultValue={30} onChange={handleSelect} min={3} max={180} disabled={recOn ? false : true} />
       </Box>
     </MaximumSecondsBlock>
   );

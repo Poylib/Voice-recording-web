@@ -15,10 +15,7 @@ function App() {
       <Header audioList={audioList} recOn={recOn} />
       <Routes>
         <Route path='/' element={<Play audioList={audioList} />} />
-        <Route
-          path='/record'
-          element={<Record audioList={audioList} setAudioList={setAudioList} recOn={recOn} setRecOn={setRecOn} />}
-        />
+        <Route path='/record' element={<Record recOn={recOn} setRecOn={setRecOn} />} />
       </Routes>
     </>
   );
