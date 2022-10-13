@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
+import storage from '../firebase';
 import PlayButton from '../components/Record/PlayButton';
 import MaximumSeconds from '../components/Record/MaximumSeconds';
+import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
 const Record = ({ audioList, setAudioList }) => {
@@ -10,10 +12,12 @@ const Record = ({ audioList, setAudioList }) => {
   const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
+  const [audio, setAudio] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [count, setCount] = useState(0);
+  const [isMessageOn, setIsMessageOn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [maxSeconds, setMaxSeconds] = useState(30);
+  const [maxSeconds, setMaxSeconds] = useState(Infinity);
   const countRef = useRef(null);
 
   useEffect(() => {
@@ -22,12 +26,25 @@ const Record = ({ audioList, setAudioList }) => {
     }
   }, [recOn]);
 
+  useEffect(() => {
+    if (audio) uploadAudio();
+  }, [audio]);
+
+  const uploadAudio = () => {
+    if (audio == null) return;
+    const audioRef = ref(storage, `audio/${audio.name}`);
+    uploadBytes(audioRef, audio).then(() => {
+      setIsMessageOn(true);
+    });
+  };
+
   let today = new Date();
   let year = today.getFullYear();
-  let month = today.getMonth() + 1;
-  let date = today.getDate();
-  let hours = today.getHours();
-  let minutes = today.getMinutes();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let date = ('0' + today.getDate()).slice(-2);
+  let hours = ('0' + today.getHours()).slice(-2);
+  let minutes = ('0' + today.getMinutes()).slice(-2);
+  let seconds = ('0' + today.getSeconds()).slice(-2);
 
   const startHandler = () => {
     countRef.current = setInterval(() => setCount(c => c + 1), 1000);
@@ -101,7 +118,6 @@ const Record = ({ audioList, setAudioList }) => {
       setAudioUrl(e.data);
       setRecOn(true);
     };
-
     stream.getAudioTracks().forEach(function (track) {
       track.stop();
     });
@@ -118,11 +134,16 @@ const Record = ({ audioList, setAudioList }) => {
         ...audioList,
         {
           id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
-          title: year + '-' + month + '-' + date + '/' + hours + ':' + minutes,
+          title: `${year}-${month}-${date}/${hours}:${minutes}"${seconds}`,
           url: URL.createObjectURL(audioUrl),
         },
       ]);
     }
+    const sound = new File([audioUrl], `${year}-${month}-${date}|${hours}:${minutes}:${seconds}`, {
+      lastModified: new Date().getTime(),
+      type: 'audio',
+    });
+    setAudio(sound);
   }, [audioUrl]);
 
   const handleSelect = e => {
@@ -139,17 +160,17 @@ const Record = ({ audioList, setAudioList }) => {
         </div>
         REC
       </div>
-      <PlayButton //
-        isRecord={true}
+      <PlayButton
         recOn={recOn}
         startRecord={startRecord}
         stopRecord={stopRecord}
         startHandler={startHandler}
         stopHandler={stopHandler}
-        onSubmitAudioFile={onSubmitAudioFile}
         buttonClicked={buttonClicked}
         setButtonClicked={setButtonClicked}
+        setIsMessageOn={setIsMessageOn}
       />
+      <SaveCompelete isMessageOn={isMessageOn} setIsMessageOn={setIsMessageOn} />
     </RecordBlock>
   );
 };
@@ -159,33 +180,37 @@ const RecordBlock = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 85vh;
+  height: 80vh;
   .timer {
-    font-size: 32px;
+    font-size: 48px;
     font-weight: 700;
     margin: 40px 0 20px 0;
   }
   .recording-alert {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin: 90px 0 30px 0;
     color: ${props => (props.recOn ? 'black' : 'red')};
+    font-size: 20px;
     font-weight: 700;
+
     .recording-light {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 13px;
-      width: 13px;
+      height: 19px;
+      width: 19px;
       border-radius: 100%;
       margin-right: 5px;
       background-color: ${props => (props.recOn ? 'black' : 'red')};
       animation: clickEffect 0.8s ease-out;
+
       .backlight-on {
         position: absolute;
-        width: 26px;
-        height: 26px;
+        width: 38px;
+        height: 38px;
         border-radius: 20px;
         background-color: rgba(208, 107, 0, 0.6);
         animation: scale 2s infinite alternate;
@@ -194,11 +219,31 @@ const RecordBlock = styled.div`
   }
   @keyframes scale {
     0%,
-    65% {
+    50% {
       transform: scale(0);
     }
     100% {
       transform: scale(1);
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .timer {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 40px 0 20px 0;
+    }
+    .recording-alert {
+      font-size: 16px;
+      .recording-light {
+        height: 13px;
+        width: 13px;
+
+        .backlight-on {
+          width: 26px;
+          height: 26px;
+        }
+      }
     }
   }
 `;

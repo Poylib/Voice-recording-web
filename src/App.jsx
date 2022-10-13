@@ -8,19 +8,10 @@ import Header from './components/Header/Header';
 function App() {
   const [audioList, setAudioList] = useState([]);
 
-  useEffect(() => {
-    if (audioList.length !== 0) sessionStorage.setItem('audioList', JSON.stringify(audioList));
-  }, [audioList]);
-
-  useEffect(() => {
-    const parsedList = JSON.parse(sessionStorage.getItem('audioList'));
-    if (parsedList !== null) setAudioList(parsedList);
-  }, []);
-
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header audioList={audioList} />
       <Routes>
         <Route path='/' element={<Play audioList={audioList} />} />
         <Route path='/record' element={<Record audioList={audioList} setAudioList={setAudioList} />} />

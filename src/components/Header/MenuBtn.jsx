@@ -15,7 +15,7 @@ const MenuBtn = ({ openSide, setOpenSide }) => {
   );
 };
 
-let Container = styled.div`
+const Container = styled.div`
   z-index: 30;
   div {
     border-radius: 5px;
