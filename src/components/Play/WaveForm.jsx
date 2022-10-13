@@ -27,7 +27,6 @@ const WaveForm = () => {
         barGap: 2,
         barMinHeight: 1,
         cursorWidth: 1,
-        // container: '#waveform',
         backend: 'WebAudio',
         height: 80,
         progressColor: '#00aac5',
