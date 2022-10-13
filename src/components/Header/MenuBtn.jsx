@@ -1,19 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { mainColor } from '../../Theme';
 
 const MenuBtn = ({ openSide, setOpenSide, recOn }) => {
   const clickRef = useRef();
-  useEffect(() => {
-    clickRef.current.classList.toggle('change');
-  }, [openSide]);
   const BtnChange = () => {
     if (recOn) {
       setOpenSide(!openSide);
     }
   };
   return (
-    <Container onClick={BtnChange} ref={clickRef} recOn={recOn}>
+    <Container className={openSide && 'change'} onClick={BtnChange} ref={clickRef} recOn={recOn}>
       <div className='bar1'></div>
       <div className='bar2'></div>
       <div className='bar3'></div>
