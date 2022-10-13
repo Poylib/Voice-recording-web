@@ -9,10 +9,6 @@ import { BsFillPauseFill } from 'react-icons/bs';
 const WaveForm = ({ selectedRecord }) => {
   console.log(selectedRecord);
   const [play, setPlay] = useState(true);
-  // const [url, setUrl] = useState('https://www.bensound.com/bensound-music/bensound-love.mp3');
-
-  const track = document.querySelector('#track');
-  // const url = 'https://www.bensound.com/bensound-music/bensound-love.mp3';
 
   const waveformRef = useRef();
   const wavesurfer = useRef(null);
@@ -23,7 +19,6 @@ const WaveForm = ({ selectedRecord }) => {
   };
 
   useEffect(() => {
-    // setUrl(selectedRecord);
     if (waveformRef.current) {
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
@@ -45,19 +40,19 @@ const WaveForm = ({ selectedRecord }) => {
   }, [selectedRecord]);
   return (
     <WaveformContianer>
+      <Wave id='waveform' ref={waveformRef} />
+      <audio id='track' src={selectedRecord} />
+
       <PlayButton onClick={handlePlay}>
         {play ? <BsFillPlayFill className='play-btn' /> : <BsFillPauseFill className='pause-btn' />}
       </PlayButton>
-      <Wave id='waveform' ref={waveformRef} />
-      <audio id='track' src={selectedRecord} />
-      <div>0.52</div>
     </WaveformContianer>
   );
 };
 
 const WaveformContianer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 87%;
@@ -79,17 +74,15 @@ const PlayButton = styled.button`
   justify-content: center;
   align-items: center;
   width: 90px;
-  height: 70px;
-  background: #b9e4eb;
+  height: 90px;
+  background: ${mainColor};
+  color: white;
   border-radius: 50%;
   border: none;
   outline: none;
   cursor: pointer;
   padding-bottom: 3px;
-  &:hover {
-    background: ${mainColor};
-    color: white;
-  }
+
   .play-btn {
     font-size: 30px;
   }
