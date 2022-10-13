@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Download from '../components/Play/Download';
 import WaveForm from '../components/Play/WaveForm';
 
 const Play = () => {
@@ -6,6 +7,7 @@ const Play = () => {
     <section>
       <Title>제목:</Title>
       <WaveForm />
+      <Download />
     </section>
   );
 };
