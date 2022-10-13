@@ -5,7 +5,7 @@ import storage from '../../firebase';
 import { mainColor } from '../../Theme';
 import { useNavigate } from 'react-router-dom';
 
-const SideBar = ({ setSelectedRecord, openSide, setOpenSide }) => {
+const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
   const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
@@ -26,10 +26,10 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide }) => {
   const clickList = async e => {
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
+    navigate(`/${e.currentTarget.id}`);
     try {
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
       setSelectedRecord(url);
-      navigate('/');
       setOpenSide(!openSide);
     } catch (error) {
       console.log(error);

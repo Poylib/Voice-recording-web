@@ -1,23 +1,22 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Download from '../components/Play/Download';
 import List from '../components/Play/List';
 import WaveForm from '../components/Play/WaveForm';
 
 const Play = ({ selectedRecord }) => {
-  // const navigete = useNavigate();
-  // useEffect(() => {
-  //   if (selectedRecord === '') navigete('/record');
-  // }, [selectedRecord]);
+  const params = useParams();
+
   return (
     <Section>
-      <Container>
-        <Title>제목:2022.10.13</Title>
-        <Download />
-      </Container>
+      {params.id && (
+        <Container>
+          <Title>{`제목 : ${params.id}`}</Title>
+          <Download />
+        </Container>
+      )}
+
       {selectedRecord !== '' ? <WaveForm selectedRecord={selectedRecord} /> : <span>empty</span>}
-      {/* <WaveForm selectedRecord={selectedRecord} /> */}
       <List />
     </Section>
   );

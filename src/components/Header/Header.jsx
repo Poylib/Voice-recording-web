@@ -19,6 +19,7 @@ const Header = ({ recOn, setSelectedRecord }) => {
         openSide={openSide}
         setOpenSide={setOpenSide}
         setSelectedRecord={setSelectedRecord}
+        recOn={recOn}
       />
     </>
   );
