@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn }) => {
   const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
+  const [renderCheck, setRenderCheck] = useState(true);
   const [clickNum, setClickNum] = useState('');
   const [clickName, setClickName] = useState('');
   const [audioList, setAudioList] = useState('');
@@ -23,13 +24,12 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
           console.log(error);
         }
       })();
-  }, [isMessageOn]);
+  }, [isMessageOn, renderCheck]);
 
   const clickList = async e => {
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
     setClickName(e.currentTarget.id);
-
     try {
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
       setSelectedRecord(url);
@@ -41,10 +41,7 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
   const deleteList = async e => {
     const removeRef = ref(storage, `audio/${clickName}`);
     try {
-      await deleteObject(removeRef);
-      const { items } = await listAll(ref(storage));
-      setAudioList(items.reverse());
-      console.log(audioList);
+      await deleteObject(removeRef).then(res => setRenderCheck(!renderCheck));
     } catch (error) {
       console.log(error);
     }
