@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaPlay, FaStop, FaPause, FaMicrophoneAlt } from 'react-icons/fa';
+import { FaStop, FaMicrophoneAlt } from 'react-icons/fa';
 import styled from 'styled-components';
 import { mainColor } from '../../theme';
 
@@ -13,16 +13,20 @@ const PlayButton = ({
   setButtonClicked,
   setIsMessageOn,
 }) => {
+  const [btnDisabled, setBtnDisabled] = useState(false);
   const clickButton = () => setButtonClicked(!buttonClicked);
   return (
-    <PlayButtonBlock>
+    <PlayButtonBlock btnDisabled={btnDisabled}>
       <button
+        disabled={btnDisabled}
         onClick={() => {
           clickButton();
           if (recOn) {
             startRecord();
             startHandler();
             setIsMessageOn(false);
+            setBtnDisabled(true);
+            setTimeout(() => setBtnDisabled(false), 3000);
           } else {
             stopRecord();
             stopHandler();
@@ -44,7 +48,7 @@ const PlayButtonBlock = styled.div`
     height: 125px;
     border: none;
     border-radius: 100%;
-    background-color: ${mainColor};
+    background-color: ${props => (props.btnDisabled ? '#016373' : mainColor)};
     color: white;
     cursor: pointer;
 
