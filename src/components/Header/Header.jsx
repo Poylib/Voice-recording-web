@@ -13,7 +13,11 @@ const Header = ({ recOn, setSelectedRecord, isMessageOn }) => {
       <StyledHeader>
         <RecordBtn recOn={recOn} />
         <Logo recOn={recOn} />
-        <MenuBtn openSide={openSide} setOpenSide={setOpenSide} recOn={recOn} />
+        <MenuBtn //
+          openSide={openSide}
+          setOpenSide={setOpenSide}
+          recOn={recOn}
+        />
       </StyledHeader>
       <SideBar //
         openSide={openSide}

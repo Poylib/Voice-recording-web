@@ -12,18 +12,15 @@
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/material": "^5.10.9",
-    "axios": "^1.1.2",
     "firebase": "^9.12.1",
     "firebase-tools": "^11.14.2",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-h5-audio-player": "^3.8.6",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.2",
     "styled-components": "^5.3.6",
     "styled-reset": "^4.4.2",
-    "uuid": "^9.0.0",
     "wavesurfer-react": "^2.2.2"
   },
   "devDependencies": {

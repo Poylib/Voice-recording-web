@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import storage from '../../firebase';
 import { mainColor } from '../../Theme';
-import styled from 'styled-components';
 
 const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn }) => {
   const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
+  const [renderCheck, setRenderCheck] = useState(true);
   const [clickNum, setClickNum] = useState('');
+  const [clickName, setClickName] = useState('');
   const [audioList, setAudioList] = useState('');
   const audioRef = ref(storage, `audio`);
 
@@ -22,20 +24,34 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
           console.log(error);
         }
       })();
-  }, [isMessageOn]);
+  }, [isMessageOn, renderCheck]);
 
   const clickList = async e => {
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
-    navigate(`/${e.currentTarget.id}`);
+    setClickName(e.currentTarget.id);
     try {
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
       setSelectedRecord(url);
-      setOpenSide(!openSide);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const deleteList = async e => {
+    const removeRef = ref(storage, `audio/${clickName}`);
+    try {
+      await deleteObject(removeRef).then(res => setRenderCheck(!renderCheck));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const moveHandle = () => {
+    navigate(`/${clickName}`);
+    setOpenSide(!openSide);
+  };
+
   return (
     <>
       {audioList && (
@@ -50,9 +66,9 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
                     <span>{list.name.split('|')[1]}</span>
                   </div>
                   {clickNum === index && (
-                    <div>
-                      <span>버튼자리</span>
-                      <span>버튼자리</span>
+                    <div className='btn-box'>
+                      <span onClick={moveHandle}>재생</span>
+                      <span onClick={deleteList}>삭제</span>
                     </div>
                   )}
                 </li>
@@ -88,6 +104,13 @@ const StyledSideBar = styled.div`
     font-size: 160%;
     text-align: center;
     color: white;
+  }
+  .side-body {
+    .btn-box {
+      span {
+        margin: 0 7px;
+      }
+    }
   }
   ul {
     overflow-y: auto;
