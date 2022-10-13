@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const MaximumSeconds = ({ recOn, maxSeconds, setMaxSeconds }) => {
   const handleSelect = e => {
-    console.log(e.target.value);
     setMaxSeconds(e.target.value);
   };
 
