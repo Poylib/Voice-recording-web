@@ -17,11 +17,8 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_FB_MESSAGE_ID,
   measurementId: import.meta.env.VITE_APP_FB_APP_ID,
 };
-
-console.log(firebaseConfig.storageBucket);
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
-export default app;
-export const storage = getStorage(app);
+export default storage;

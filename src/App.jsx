@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header audioList={audioList} />
       <Routes>
         <Route path='/' element={<Play audioList={audioList} />} />
         <Route path='/record' element={<Record audioList={audioList} setAudioList={setAudioList} />} />
