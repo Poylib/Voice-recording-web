@@ -6,10 +6,9 @@ import MaximumSeconds from '../components/Record/MaximumSeconds';
 import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
-const Record = ({ audioList, setAudioList }) => {
+const Record = ({ recOn, setRecOn }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
-  const [recOn, setRecOn] = useState(true);
   const [source, setSource] = useState();
   const [analyser, setAnalyser] = useState();
   const [audio, setAudio] = useState();
@@ -17,7 +16,7 @@ const Record = ({ audioList, setAudioList }) => {
   const [count, setCount] = useState(0);
   const [isMessageOn, setIsMessageOn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
-  const [maxSeconds, setMaxSeconds] = useState(Infinity);
+  const [maxSeconds, setMaxSeconds] = useState(30);
   const countRef = useRef(null);
 
   useEffect(() => {
@@ -92,7 +91,7 @@ const Record = ({ audioList, setAudioList }) => {
       makeSound(stream);
 
       analyser.onaudioprocess = function (e) {
-        if (e.playbackTime > maxSeconds) {
+        if (e.playbackTime > maxSeconds + 0.9) {
           stream.getAudioTracks().forEach(function (track) {
             track.stop();
             stopHandler();
@@ -128,32 +127,17 @@ const Record = ({ audioList, setAudioList }) => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
-    const fullLength = audioList.length;
-    if (audioUrl) {
-      setAudioList([
-        ...audioList,
-        {
-          id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
-          title: `${year}-${month}-${date}/${hours}:${minutes}"${seconds}`,
-          url: URL.createObjectURL(audioUrl),
-        },
-      ]);
-    }
-    const sound = new File([audioUrl], `${year}-${month}-${date}|${hours}:${minutes}:${seconds}`, {
+    const sound = new File([audioUrl], `${year}-${month}-${date}|${hours}:${minutes}:${seconds}.mp3`, {
       lastModified: new Date().getTime(),
       type: 'audio',
     });
     setAudio(sound);
   }, [audioUrl]);
 
-  const handleSelect = e => {
-    setMaxSeconds(e.target.value);
-  };
-
   return (
     <RecordBlock recOn={recOn}>
       <p className='timer'>{count.toHHMMSS()}</p>
-      <MaximumSeconds handleSelect={handleSelect} recOn={recOn} maxSeconds={maxSeconds} />
+      <MaximumSeconds recOn={recOn} maxSeconds={maxSeconds} setMaxSeconds={setMaxSeconds} />
       <div className='recording-alert'>
         <div className='recording-light'>
           <div className={recOn ? 'backlight-off' : 'backlight-on'} />
@@ -184,7 +168,7 @@ const RecordBlock = styled.div`
   .timer {
     font-size: 48px;
     font-weight: 700;
-    margin: 40px 0 20px 0;
+    margin: 40px 0 30px 0;
   }
   .recording-alert {
     display: flex;
@@ -231,7 +215,6 @@ const RecordBlock = styled.div`
     .timer {
       font-size: 32px;
       font-weight: 700;
-      margin: 40px 0 20px 0;
     }
     .recording-alert {
       font-size: 16px;

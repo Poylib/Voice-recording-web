@@ -7,14 +7,15 @@ import Header from './components/Header/Header';
 
 function App() {
   const [audioList, setAudioList] = useState([]);
+  const [recOn, setRecOn] = useState(true);
 
   return (
     <>
       <GlobalStyle />
-      <Header audioList={audioList} />
+      <Header audioList={audioList} recOn={recOn} />
       <Routes>
         <Route path='/' element={<Play audioList={audioList} />} />
-        <Route path='/record' element={<Record audioList={audioList} setAudioList={setAudioList} />} />
+        <Route path='/record' element={<Record recOn={recOn} setRecOn={setRecOn} />} />
       </Routes>
     </>
   );

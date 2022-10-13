@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { mainColor } from '../../Theme';
 
-const MenuBtn = ({ openSide, setOpenSide }) => {
+const MenuBtn = ({ openSide, setOpenSide, recOn }) => {
   const BtnChange = e => {
-    setOpenSide(!openSide);
-    e.currentTarget.classList.toggle('change');
+    if (recOn) {
+      setOpenSide(!openSide);
+      e.currentTarget.classList.toggle('change');
+    }
   };
   return (
-    <Container onClick={BtnChange}>
+    <Container onClick={BtnChange} recOn={recOn}>
       <div className='bar1'></div>
       <div className='bar2'></div>
       <div className='bar3'></div>
@@ -16,6 +18,7 @@ const MenuBtn = ({ openSide, setOpenSide }) => {
 };
 
 const Container = styled.div`
+  cursor: ${props => (props.recOn ? 'pointer' : 'not-allowed')};
   z-index: 30;
   div {
     border-radius: 5px;
