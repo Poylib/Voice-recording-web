@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Download from '../components/Play/Download';
 import Empty from '../components/Play/Empty';
 import WaveForm from '../components/Play/WaveForm';
 
