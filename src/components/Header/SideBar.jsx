@@ -23,13 +23,13 @@ const SideBar = ({ openSide }) => {
   }, []);
 
   const clickList = async e => {
-    console.log(e.currentTarget);
+    console.log(e.currentTarget.id);
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
     try {
-      const url = await getDownloadURL(e);
+      const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
+
       setCurAudioURL(url);
-      console.log(curAudioURL);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +42,7 @@ const SideBar = ({ openSide }) => {
           <ul className='side-body'>
             {audioList.map((list, index) => {
               return (
-                <li key={list.name} value={index} onClick={clickList}>
+                <li key={list.name} value={index} id={list.name} onClick={clickList}>
                   <div className='date-name'>
                     <span>{list.name.split('|')[0]}</span>
                     <span>{list.name.split('|')[1]}</span>
