@@ -8,6 +8,7 @@ const SideBar = ({ openSide }) => {
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
   const [audioList, setAudioList] = useState('');
+  const [curAudioURL, setCurAudioURL] = useState('');
   const audioRef = ref(storage, `audio`);
 
   useEffect(() => {
@@ -21,9 +22,17 @@ const SideBar = ({ openSide }) => {
     })();
   }, []);
 
-  const clickList = e => {
+  const clickList = async e => {
+    console.log(e.currentTarget);
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
+    try {
+      const url = await getDownloadURL(e);
+      setCurAudioURL(url);
+      console.log(curAudioURL);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
