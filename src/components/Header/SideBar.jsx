@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import { ref, listAll, getDownloadURL, deleteObject } from 'firebase/storage';
 import storage from '../../firebase';
 import { mainColor } from '../../Theme';
+import { useNavigate } from 'react-router-dom';
 
-const SideBar = ({ openSide }) => {
+const SideBar = ({ setSelectedRecord, openSide, setOpenSide }) => {
+  const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
   const [audioList, setAudioList] = useState('');
-  const [curAudioURL, setCurAudioURL] = useState('');
   const audioRef = ref(storage, `audio`);
 
   useEffect(() => {
@@ -23,13 +24,13 @@ const SideBar = ({ openSide }) => {
   }, []);
 
   const clickList = async e => {
-    console.log(e.currentTarget.id);
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
     try {
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
-
-      setCurAudioURL(url);
+      setSelectedRecord(url);
+      navigate('/');
+      setOpenSide(!openSide);
     } catch (error) {
       console.log(error);
     }
