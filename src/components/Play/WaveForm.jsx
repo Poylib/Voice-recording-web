@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import React, { useEffect, useRef, useState } from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
-import { WaveformContianer, Wave, PlayButton } from './Waveform.styled';
+import { mainColor } from '../../theme';
 
 const WaveForm = () => {
-  const [play, setPlay] = useState(false);
+  const [play, setPlay] = useState(true);
 
   const track = document.querySelector('#track');
   const url = 'https://www.bensound.com/bensound-music/bensound-love.mp3';
@@ -27,7 +27,7 @@ const WaveForm = () => {
         barGap: 2,
         barMinHeight: 1,
         cursorWidth: 1,
-        container: '#waveform',
+        // container: '#waveform',
         backend: 'WebAudio',
         height: 80,
         progressColor: '#00aac5',
@@ -37,6 +37,7 @@ const WaveForm = () => {
       });
       wavesurfer.current.load(url);
     }
+    return () => wavesurfer.current.destroy();
   }, [url]);
   return (
     <WaveformContianer>
@@ -48,4 +49,37 @@ const WaveForm = () => {
   );
 };
 
+const WaveformContianer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 85%;
+  margin: auto;
+  background: transparent;
+  gap: 2rem;
+`;
+
+const Wave = styled.div`
+  width: 100%;
+  height: 90px;
+`;
+
+const PlayButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background: #c2f2fa;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-bottom: 3px;
+  &:hover {
+    background: ${mainColor};
+  }
+`;
 export default WaveForm;
