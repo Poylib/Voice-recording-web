@@ -6,7 +6,7 @@ import MaximumSeconds from '../components/Record/MaximumSeconds';
 import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
-const Record = ({ audioList, setAudioList, recOn, setRecOn }) => {
+const Record = ({ recOn, setRecOn }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
   const [source, setSource] = useState();
@@ -127,17 +127,6 @@ const Record = ({ audioList, setAudioList, recOn, setRecOn }) => {
   };
 
   const onSubmitAudioFile = useCallback(() => {
-    const fullLength = audioList.length;
-    if (audioUrl) {
-      setAudioList([
-        ...audioList,
-        {
-          id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
-          title: `${year}-${month}-${date}/${hours}:${minutes}"${seconds}`,
-          url: URL.createObjectURL(audioUrl),
-        },
-      ]);
-    }
     const sound = new File([audioUrl], `${year}-${month}-${date}|${hours}:${minutes}:${seconds}`, {
       lastModified: new Date().getTime(),
       type: 'audio',
