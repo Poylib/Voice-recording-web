@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import Wave from '../components/Play/Wave';
+import WaveForm from '../components/Play/WaveForm';
 
 const Play = () => {
   return (
     <section>
-      <div className='App'>
-        <Title>제목:</Title>
-        <Wave />
-      </div>
+      <Title>제목:</Title>
+      <WaveForm />
     </section>
   );
 };
