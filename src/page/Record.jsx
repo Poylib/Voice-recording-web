@@ -165,18 +165,18 @@ const RecordBlock = styled.div`
   justify-content: center;
   height: 80vh;
   .timer {
+    margin: 40px 0 30px 0;
     font-size: 48px;
     font-weight: 700;
-    margin: 40px 0 30px 0;
   }
   .recording-alert {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 90px 0 30px 0;
-    color: ${props => (props.recOn ? 'black' : 'red')};
     font-size: 20px;
     font-weight: 700;
+    color: ${props => (props.recOn ? 'black' : 'red')};
 
     .recording-light {
       position: relative;

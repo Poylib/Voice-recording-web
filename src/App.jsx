@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import GlobalStyle from './GrobalStyle';
 import Play from './page/Play';
@@ -13,14 +13,23 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Header setSelectedRecord={setSelectedRecord} recOn={recOn} isMessageOn={isMessageOn} />
+      <Header //
+        setSelectedRecord={setSelectedRecord}
+        recOn={recOn}
+        isMessageOn={isMessageOn}
+      />
       <Routes>
         <Route path='/' element={<Play selectedRecord={selectedRecord} />} />
         <Route path='/:id' element={<Play selectedRecord={selectedRecord} />} />
         <Route
           path='/record'
           element={
-            <Record recOn={recOn} setRecOn={setRecOn} isMessageOn={isMessageOn} setIsMessageOn={setIsMessageOn} />
+            <Record //
+              recOn={recOn}
+              setRecOn={setRecOn}
+              isMessageOn={isMessageOn}
+              setIsMessageOn={setIsMessageOn}
+            />
           }
         />
       </Routes>

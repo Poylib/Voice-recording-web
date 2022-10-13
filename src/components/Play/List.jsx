@@ -22,21 +22,21 @@ const Section = styled.section`
   background-color: #eeeeee;
 
   .nav {
-    font-size: 25px;
     padding-left: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid lightgray;
+    font-size: 25px;
   }
   .list-container {
-    margin-top: 5%;
     display: flex;
     justify-content: space-between;
+    margin-top: 5%;
     text-align: center;
     padding-bottom: 10px;
     border-bottom: 1px solid lightgray;
     .title {
-      font-size: 20px;
       padding-left: 10px;
+      font-size: 20px;
     }
     .time-duration-box {
       display: flex;
