@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../firebase';
 import PlayButton from '../components/Record/PlayButton';
 import MaximumSeconds from '../components/Record/MaximumSeconds';
 import styled from 'styled-components';
@@ -16,18 +17,36 @@ const Record = ({ audioList, setAudioList }) => {
   const [maxSeconds, setMaxSeconds] = useState(Infinity);
   const countRef = useRef(null);
 
+  const [downloadUrl, setDownloadUrl] = useState('');
+  const [audio, setAudio] = useState();
+  const [error, setError] = useState('');
+  const [progress, setProgress] = useState(100);
+
   useEffect(() => {
     if (audioUrl && recOn) {
       onSubmitAudioFile();
     }
   }, [recOn]);
 
+  useEffect(() => {
+    if (audio) uploadAudio();
+  }, [audio]);
+
+  const uploadAudio = () => {
+    if (audio == null) return;
+    const audioRef = ref(storage, `audio/${audio.name}`);
+    uploadBytes(audioRef, audio).then(() => {
+      alert('Audio Uploaded');
+    });
+  };
+
   let today = new Date();
   let year = today.getFullYear();
-  let month = today.getMonth() + 1;
-  let date = today.getDate();
-  let hours = today.getHours();
-  let minutes = today.getMinutes();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let date = ('0' + today.getDate()).slice(-2);
+  let hours = ('0' + today.getHours()).slice(-2);
+  let minutes = ('0' + today.getMinutes()).slice(-2);
+  let seconds = ('0' + today.getSeconds()).slice(-2);
 
   const startHandler = () => {
     countRef.current = setInterval(() => setCount(c => c + 1), 1000);
@@ -118,11 +137,17 @@ const Record = ({ audioList, setAudioList }) => {
         ...audioList,
         {
           id: fullLength !== 0 ? audioList[fullLength - 1].id + 1 : 0,
-          title: year + '-' + month + '-' + date + '/' + hours + 'h' + minutes + 'm',
+          title: `${year}-${month}-${date}/${hours}:${minutes}"${seconds}`,
           url: URL.createObjectURL(audioUrl),
         },
       ]);
     }
+    const sound = new File([audioUrl], `${year}-${month}-${date}|${hours}:${minutes}:${seconds}`, {
+      lastModified: new Date().getTime(),
+      type: 'audio',
+    });
+    setAudio(sound);
+    console.log(sound);
   }, [audioUrl]);
 
   const handleSelect = e => {
