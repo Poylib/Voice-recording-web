@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Empty = () => {
   return (
     <Section>
-      <div>재생 목록이 없습니다.</div>
+      <div>환영합니다.</div>
       <div>녹음을 시작해주세요!</div>
     </Section>
   );
