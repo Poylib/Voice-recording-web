@@ -9,6 +9,7 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
   const navigate = useNavigate();
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
+  const [clickName, setClickName] = useState('');
   const [audioList, setAudioList] = useState('');
   const audioRef = ref(storage, `audio`);
 
@@ -26,15 +27,33 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
   const clickList = async e => {
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
-    navigate(`/${e.currentTarget.id}`);
+    setClickName(e.currentTarget.id);
+
     try {
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
       setSelectedRecord(url);
-      setOpenSide(!openSide);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const deleteList = async e => {
+    const removeRef = ref(storage, `audio/${clickName}`);
+    try {
+      await deleteObject(removeRef);
+      const { items } = await listAll(ref(storage));
+      setAudioList(items.reverse());
+      console.log(audioList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const moveHandle = () => {
+    navigate(`/${clickName}`);
+    setOpenSide(!openSide);
+  };
+
   return (
     <>
       {audioList && (
@@ -49,9 +68,9 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn }) => {
                     <span>{list.name.split('|')[1]}</span>
                   </div>
                   {clickNum === index && (
-                    <div>
-                      <span>버튼자리</span>
-                      <span>버튼자리</span>
+                    <div className='btn-box'>
+                      <span onClick={moveHandle}>재생</span>
+                      <span onClick={deleteList}>삭제</span>
                     </div>
                   )}
                 </li>
@@ -87,6 +106,13 @@ const StyledSideBar = styled.div`
     font-size: 160%;
     text-align: center;
     color: white;
+  }
+  .side-body {
+    .btn-box {
+      span {
+        margin: 0 7px;
+      }
+    }
   }
   ul {
     overflow-y: auto;
