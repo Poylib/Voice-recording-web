@@ -7,12 +7,9 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { BsFillPauseFill } from 'react-icons/bs';
 
 const WaveForm = ({ selectedRecord }) => {
-  console.log(selectedRecord);
   const [play, setPlay] = useState(true);
-  // const [url, setUrl] = useState('https://www.bensound.com/bensound-music/bensound-love.mp3');
 
   const track = document.querySelector('#track');
-  // const url = 'https://www.bensound.com/bensound-music/bensound-love.mp3';
 
   const waveformRef = useRef();
   const wavesurfer = useRef(null);
@@ -23,7 +20,6 @@ const WaveForm = ({ selectedRecord }) => {
   };
 
   useEffect(() => {
-    // setUrl(selectedRecord);
     if (waveformRef.current) {
       wavesurfer.current = WaveSurfer.create({
         container: waveformRef.current,
