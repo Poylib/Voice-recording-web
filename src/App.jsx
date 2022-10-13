@@ -14,6 +14,7 @@ function App() {
       <Header setSelectedRecord={setSelectedRecord} recOn={recOn} />
       <Routes>
         <Route path='/' element={<Play selectedRecord={selectedRecord} />} />
+        <Route path='/:id' element={<Play selectedRecord={selectedRecord} />} />
         <Route path='/record' element={<Record recOn={recOn} setRecOn={setRecOn} />} />
       </Routes>
     </>

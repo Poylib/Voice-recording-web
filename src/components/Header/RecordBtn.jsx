@@ -22,7 +22,7 @@ let Container = styled.div`
   cursor: ${props => (props.recOn ? 'pointer' : 'not-allowed')};
 
   .record-icon {
-    font-size: 200%;
+    font-size: 225%;
     color: ${mainColor};
   }
 `;

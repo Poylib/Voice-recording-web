@@ -7,7 +7,6 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { BsFillPauseFill } from 'react-icons/bs';
 
 const WaveForm = ({ selectedRecord }) => {
-  console.log(selectedRecord);
   const [play, setPlay] = useState(true);
 
   const waveformRef = useRef();
