@@ -6,7 +6,7 @@ import MaximumSeconds from '../components/Record/MaximumSeconds';
 import SaveCompelete from '../components/Record/SaveCompelete';
 import styled from 'styled-components';
 
-const Record = ({ recOn, setRecOn }) => {
+const Record = ({ recOn, setRecOn, isMessageOn, setIsMessageOn }) => {
   const [stream, setStream] = useState();
   const [media, setMedia] = useState();
   const [source, setSource] = useState();
@@ -14,7 +14,6 @@ const Record = ({ recOn, setRecOn }) => {
   const [audio, setAudio] = useState();
   const [audioUrl, setAudioUrl] = useState();
   const [count, setCount] = useState(0);
-  const [isMessageOn, setIsMessageOn] = useState(false);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [maxSeconds, setMaxSeconds] = useState(30);
   const countRef = useRef(null);

@@ -8,14 +8,21 @@ import Header from './components/Header/Header';
 function App() {
   const [selectedRecord, setSelectedRecord] = useState('');
   const [recOn, setRecOn] = useState(true);
+  const [isMessageOn, setIsMessageOn] = useState(false);
+
   return (
     <>
       <GlobalStyle />
-      <Header setSelectedRecord={setSelectedRecord} recOn={recOn} />
+      <Header setSelectedRecord={setSelectedRecord} recOn={recOn} isMessageOn={isMessageOn} />
       <Routes>
         <Route path='/' element={<Play selectedRecord={selectedRecord} />} />
         <Route path='/:id' element={<Play selectedRecord={selectedRecord} />} />
-        <Route path='/record' element={<Record recOn={recOn} setRecOn={setRecOn} />} />
+        <Route
+          path='/record'
+          element={
+            <Record recOn={recOn} setRecOn={setRecOn} isMessageOn={isMessageOn} setIsMessageOn={setIsMessageOn} />
+          }
+        />
       </Routes>
     </>
   );

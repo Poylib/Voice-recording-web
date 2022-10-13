@@ -5,7 +5,7 @@ import Logo from './Logo';
 import MenuBtn from './MenuBtn';
 import SideBar from './SideBar';
 
-const Header = ({ recOn, setSelectedRecord }) => {
+const Header = ({ recOn, setSelectedRecord, isMessageOn }) => {
   const [openSide, setOpenSide] = useState(false);
 
   return (
@@ -20,6 +20,7 @@ const Header = ({ recOn, setSelectedRecord }) => {
         setOpenSide={setOpenSide}
         setSelectedRecord={setSelectedRecord}
         recOn={recOn}
+        isMessageOn={isMessageOn}
       />
     </>
   );
