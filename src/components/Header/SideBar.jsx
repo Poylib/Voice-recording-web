@@ -21,22 +21,6 @@ const SideBar = ({ openSide }) => {
     })();
   }, []);
 
-  const handleSelect = async storageRef => {
-    if (storageRef.name !== curAudioName) {
-      setIsAudioLoading(true);
-      setCurAudioName(storageRef.name);
-
-      try {
-        const url = await getDownloadURL(storageRef);
-        setCurAudioURL(url);
-        setIsAudioLoading(false);
-      } catch (error) {
-        console.log(error);
-        setIsAudioLoading(false);
-      }
-    }
-  };
-
   const clickList = e => {
     setClickNum(e.currentTarget.value);
     setClickCheck(!clickCheck);
