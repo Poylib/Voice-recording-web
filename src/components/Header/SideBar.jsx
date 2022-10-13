@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { getStorage, ref, listAll } from 'firebase/storage';
 import { mainColor } from '../../Theme';
 
 const SideBar = ({ openSide, audioList }) => {
   const [clickCheck, setClickCheck] = useState(false);
   const [clickNum, setClickNum] = useState('');
+  const storage = getStorage();
+  // console.log(storage);
 
   const clickList = e => {
     setClickNum(e.currentTarget.value);
