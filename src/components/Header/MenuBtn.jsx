@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import { mainColor } from '../../Theme';
+import { mainColor } from '../../theme';
 
 const MenuBtn = ({ openSide, setOpenSide, recOn }) => {
   const clickRef = useRef();
