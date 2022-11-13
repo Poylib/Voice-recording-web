@@ -34,6 +34,7 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
       const url = await getDownloadURL(ref(storage, `audio/${(storage, e.currentTarget.id)}`));
       setSelectedRecord(url);
     } catch (error) {
+      alert('재생할 수 없는 오디오입니다. 삭제되었거나 통신에 실패했습니다.');
       console.log(error);
     }
   };
@@ -43,6 +44,7 @@ const SideBar = ({ setSelectedRecord, openSide, setOpenSide, recOn, isMessageOn 
     try {
       await deleteObject(removeRef).then(res => setRenderCheck(!renderCheck));
     } catch (error) {
+      console.log('삭제할 수 없는 오디오입니다. 이미 삭제되었거나 통신에 실패했습니다.');
       console.log(error);
     }
   };
