@@ -21,6 +21,7 @@
     "react-router-dom": "^6.4.2",
     "styled-components": "^5.3.6",
     "styled-reset": "^4.4.2",
+    "uuid": "^9.0.0",
     "wavesurfer-react": "^2.2.2"
   },
   "devDependencies": {
