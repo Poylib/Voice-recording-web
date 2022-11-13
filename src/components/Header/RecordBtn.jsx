@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FaMicrophoneAlt } from 'react-icons/fa';
-import { mainColor } from '../../Theme';
+import { mainColor } from '../../theme';
 import { useNavigate } from 'react-router-dom';
 
 const RecordBtn = ({ recOn }) => {
